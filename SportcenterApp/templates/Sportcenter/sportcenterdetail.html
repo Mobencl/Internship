@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+    <!-- Displays the Hotels Name, Country and City and Company Name -->
+      <div class="page-header">
+
+          <h2>{{sportcenters.Name}} <small class="text-muted">- <u>{{sportcenters.Partner.CompanyName}}</u></small>
+
+          </h2>
+          <small>{{ sportcenters.Country}} |  {{ sportcenters.City}}</small>
+      </div>
+      <!-- Slideshow of all the Hotels Photos -->
+      <center>
+
+        <div class="autoplay">
+          {%for Photo in Photos|slice:"1:"%}
+          <div><img  src="{{MEDIA_URL}}{{Photo.path}}"></div>
+          {%endfor%}
+        </div>
+    </center>
+      <!-- End Slideshow -->
+
+    <!-- Information Box , Hotel details ( Address, Tel etc ) & Hotel Rating-->
+    <hr>
+    <div class= "panel panel-primary">
+
+      <div class = "panel-heading">
+        <h3 class="panel-title">Sport center Details:</h3>
+      </div>
+
+      <div class="panel panel-body">
+
+          <dl class="row">
+
+              <dt class="col-sm-5">Address:</dt>
+                <dd class="col sm-7">
+                    {{ sportcenters.Address}}
+                </dd>
+              <dt class="col-sm-5">Telephone Number:</dt>
+                <dd class="col sm-7">
+                    {{ sportcenters.TelephoneNumber}}
+                </dd>
+        <!-- Unless there is only 1 hotel in this City , Display a recommended Hotel. -->
+                <dt class="col-sm-5">Other Sport centers Nearby:</dt>
+                <dd class="col sm-7">
+                    {% if Recommended %}
+                      <a href="{% url 'SportcenterApp:sportcenterdetails' Recommended.id %}">{{Recommended.Name}}</a>
+                    {% else %}
+                    <p>
+                      No other nearby Sport centers.
+                    </p>
+                    {% endif %}
+                </dd>
+
+        </dl>
+
+  </div>
+</div>
+<hr />
+
+
+
+
+</div>
+</div>
+
+<hr>
+
+
+{% endblock %}

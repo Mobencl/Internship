@@ -1,0 +1,51 @@
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sport centers</title>
+    <!-- Styles -->
+    <link href="{% static "css/app.css" %}" rel="stylesheet">
+    <link href="{% static "css/form.css" %}" rel="stylesheet">
+
+</head>
+  <!-- Template for the forms which is used for all the forms on the website. -->
+{% for field in form %}
+{% if field !='Opening'&& field!='closing'  %}
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <span class="text-danger small">{{field.errors}}</span>
+  </div>
+  <label class="control-label col-sm-2">{{ field.label_tag}}</label>
+  <div class="col-sm-10"  id="rating">
+
+    {{ field }}
+  </div>
+</div>
+{% endif %}
+{% else %}
+<div class="container">
+    <div class="col-sm-6" style="height:130px;">
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker11'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar">
+                      {{ field }}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker11').datetimepicker({
+                daysOfWeekDisabled: [0, 6]
+            });
+        });
+    </script>
+</div>
+
+{% endfor %}
